@@ -137,7 +137,9 @@ CREATE TABLE `fy_dictionary_house` (
   `house_duty_range` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '责任盘范围(责任盘) 1:责任盘,2:范围盘,3:非范围盘',
   `house_if_delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除，1已删 0未删',
   PRIMARY KEY (`house_id`),
-  KEY `house_business_circle` (`house_business_circle`)
+  UNIQUE KEY `house_code_UNIQUE` (`house_code`),
+  KEY `house_business_circle` (`house_business_circle`),
+  KEY `index_part` (`house_part`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='楼盘表'$$
 
 
@@ -213,15 +215,19 @@ delimiter $$
 
 CREATE TABLE `fy_dictionary_picture` (
   `picture_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '文件id',
+  `picture_module` smallint(6) NOT NULL COMMENT '图片所属模块=>100:楼盘字典,200:房源',
+  `picture_target_type` smallint(6) DEFAULT NULL COMMENT '对象类型=>101:楼盘,104:房屋,201:房源',
+  `picture_target_id` int(11) unsigned NOT NULL COMMENT '对象id',
+  `picture_type` smallint(6) NOT NULL COMMENT '图片类型 101:楼盘平面图,102:楼盘外观图,103:楼盘户型图,201:栋座外观图,202:栋座户型图,203:栋座剖面图,301:房屋内部图,302:房屋户型图,303:房屋外观图',
   `file_unique_hash` char(40) NOT NULL COMMENT '文件id',
-  `target_id` int(11) unsigned NOT NULL COMMENT '对象id',
-  `house_id` int(11) unsigned NOT NULL COMMENT '楼盘id',
   `file_save_path` varchar(100) NOT NULL COMMENT '文件路径(冗余)',
   `picture_name` varchar(50) NOT NULL COMMENT '图片名称',
-  `picture_module` enum('300','200','100') NOT NULL COMMENT '图片所属模块 100:楼盘,200:栋座,300:房屋',
-  `picture_type` enum('303','302','301','203','202','201','103','102','101') NOT NULL COMMENT '图片类型 101:楼盘平面图,102:楼盘外观图,103:楼盘户型图,201:栋座外观图,202:栋座户型图,203:栋座剖面图,301:房屋内部图,302:房屋户型图,303:房屋外观图',
+  `picture_size` varchar(45) DEFAULT NULL COMMENT '图片尺寸',
+  `picture_file_type` varchar(45) DEFAULT NULL COMMENT '图片文件类型',
+  `picture_tag` varchar(45) DEFAULT NULL COMMENT '标签',
+  `picture_is_cover` tinyint(3) unsigned NOT NULL COMMENT '是否是封面',
   PRIMARY KEY (`picture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=435 DEFAULT CHARSET=utf8 COMMENT='楼盘字典相册表'$$
+) ENGINE=MyISAM AUTO_INCREMENT=435 DEFAULT CHARSET=utf8 COMMENT='图片表'$$
 
 
 delimiter $$
@@ -289,7 +295,9 @@ CREATE TABLE `fy_dictionary_room` (
   `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
   `room_if_delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态 0未 1已删除',
   PRIMARY KEY (`room_id`),
-  KEY `house_id` (`house_id`)
+  KEY `house_id` (`house_id`),
+  KEY `index_seat_id` (`seat_id`),
+  KEY `index_unit_id` (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='楼盘字典房屋表'$$
 
 
