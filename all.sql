@@ -252,18 +252,6 @@ CREATE TABLE `fy_dictionary_room` (
 
 delimiter $$
 
-CREATE TABLE `fy_dictionary_room_share` (
-  `share_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '共享ID',
-  `room_id` int(10) DEFAULT NULL COMMENT '房屋id',
-  `share_type` char(1) DEFAULT NULL COMMENT '共享类型\r\n0: A级共享部门\r\n1: B级共享部门\r\n2: C级共享部门\r\n',
-  `department_id` int(10) DEFAULT NULL COMMENT '部门ID',
-  PRIMARY KEY (`share_id`),
-  UNIQUE KEY ` share_department_room` (`room_id`,`share_type`,`department_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='楼盘字典房屋责任部门共享表'$$
-
-
-delimiter $$
-
 CREATE TABLE `fy_dictionary_room_type` (
   `type_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '户型id',
   `unit_type_name` varchar(20) NOT NULL DEFAULT '' COMMENT '户型名称',
@@ -272,7 +260,8 @@ CREATE TABLE `fy_dictionary_room_type` (
   `type_kitchen` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '厨',
   `type_bathroom` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '卫',
   `type_balcony` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '阳',
-  PRIMARY KEY (`type_id`)
+  PRIMARY KEY (`type_id`),
+  KEY `index_search` (`type_room`,`type_hall`,`type_kitchen`,`type_bathroom`,`type_balcony`) COMMENT '查重'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='户型表'$$
 
 
@@ -365,7 +354,8 @@ CREATE TABLE `fy_dictionary_view_times` (
   `times_last_update_time` timestamp NULL DEFAULT NULL COMMENT '查看时间',
   PRIMARY KEY (`times_id`),
   KEY `index_room_id` (`room_id`),
-  KEY `index_user_id` (`user_id`)
+  KEY `index_user_id` (`user_id`),
+  KEY `index_user_room` (`user_id`,`room_id`) COMMENT '快速找到用户查看某个房屋的次数'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='业主电话查看记录表'$$
 
 
