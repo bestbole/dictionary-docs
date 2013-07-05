@@ -1,56 +1,5 @@
 delimiter $$
 
-CREATE TABLE `fy_dictionary_change_field` (
-  `cf_id` int(10) NOT NULL AUTO_INCREMENT,
-  `record_id` int(10) unsigned NOT NULL COMMENT '变更记录id',
-  `initial_value` varchar(255) NOT NULL DEFAULT '' COMMENT '初始值',
-  `change_value` varchar(255) NOT NULL DEFAULT '' COMMENT '变更值',
-  `change_field` varchar(40) NOT NULL DEFAULT '' COMMENT '变更项',
-  `change_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '变更类型；1=>编辑;2=>添加;3=>删除;',
-  PRIMARY KEY (`cf_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘字典变更详细字段表'$$
-
-
-delimiter $$
-
-CREATE TABLE `fy_dictionary_change_record` (
-  `record_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '记录id',
-  `record_foreign_id` int(10) unsigned NOT NULL COMMENT '对象id',
-  `record_foreign_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '记录类型;1=>楼盘;2=>栋座;3=>单元;4=>房屋',
-  `record_level` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '变更类型;1审核中 2审核通过 3已拒绝',
-  `record_person_id` int(10) unsigned NOT NULL COMMENT '变更人id',
-  `record_person_belong` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '变更人所属部门',
-  `record_reason` varchar(255) NOT NULL DEFAULT '' COMMENT '变更原因',
-  `record_change_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '变更时间',
-  `record_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '变更类型；1=>新建;2=>修改',
-  `record_content_type` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '变更内容类型;1=>信息（保留字段2013/1/11）',
-  `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
-  PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='楼盘字典变更信息记录表'$$
-
-
-delimiter $$
-
-CREATE TABLE `fy_dictionary_cryption` (
-  `cryption_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '加解密id',
-  `room_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '房屋id',
-  `cryption_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '加解密类型 1加密 2解密',
-  `cryption_level` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '加解密等级 1电话加密 2业主加密',
-  `cryption_reason` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '加解密原因 1.房主要求 2.资源保护',
-  `cryption_remark` varchar(300) NOT NULL DEFAULT '' COMMENT '备注',
-  `cryption_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  `cryption_create_by` int(10) unsigned NOT NULL COMMENT '创建人',
-  `cryption_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 (0:新建 1:有效)',
-  `cryption_audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `cryption_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '审核时间',
-  `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型 601',
-  `cryption_audit_remark` varchar(500) NOT NULL DEFAULT '' COMMENT '审核备注',
-  PRIMARY KEY (`cryption_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COMMENT='加解密申请表'$$
-
-
-delimiter $$
-
 CREATE TABLE `fy_dictionary_follow` (
   `follow_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '精耕记录id',
   `room_id` int(11) unsigned NOT NULL COMMENT '房屋id',
@@ -318,11 +267,11 @@ delimiter $$
 CREATE TABLE `fy_dictionary_room_type` (
   `type_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '户型id',
   `unit_type_name` varchar(20) NOT NULL DEFAULT '' COMMENT '户型名称',
-  `unit_type_room` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '室',
-  `unit_type_hall` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '厅',
-  `unit_type_kitchen` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '厨',
-  `unit_type_bathroom` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '卫',
-  `unit_type_balcony` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '阳',
+  `type_room` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '室',
+  `type_hall` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '厅',
+  `type_kitchen` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '厨',
+  `type_bathroom` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '卫',
+  `type_balcony` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '阳',
   PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='户型表'$$
 
