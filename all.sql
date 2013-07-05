@@ -408,20 +408,6 @@ CREATE TABLE `fy_dictionary_unit` (
 
 delimiter $$
 
-CREATE TABLE `fy_dictionary_room_type` (
-  `type_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '户型id',
-  `unit_type_name` varchar(20) NOT NULL DEFAULT '' COMMENT '户型名称',
-  `unit_type_room` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '室',
-  `unit_type_hall` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '厅',
-  `unit_type_kitchen` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '厨',
-  `unit_type_bathroom` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '卫',
-  `unit_type_balcony` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '阳',
-  PRIMARY KEY (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='户型表'$$
-
-
-delimiter $$
-
 CREATE TABLE `fy_dictionary_view_times` (
   `times_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `room_id` int(10) unsigned DEFAULT NULL COMMENT '房屋id',
