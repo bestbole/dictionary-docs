@@ -2,13 +2,15 @@
 
 /**
  * 楼盘字典基础逻辑
+ * 
+ * 楼盘、栋座、单元、房屋继承此类
  */
 abstract class BaseLogic {
 
     /**
      * 获取单条记录及相关的所有信息
      * @param int $id   主键id
-     * @return array 操作代码，数据
+     * @return array 主键对应的数据
      */
     public function get($id) {
         
@@ -83,7 +85,7 @@ abstract class BaseLogic {
      * 查重
      * @param string $name 需要查重的名称
      * @param int $parent_id 查重条件
-     * @param int $self_id 用于编辑时查重，需要查重数据的自身id
+     * @param int $self_id 用于编辑时查重，需要查重数据的自身id以排除
      */
     public function nameExists($name, $parent_id, $self_id = null) {
         
@@ -91,10 +93,15 @@ abstract class BaseLogic {
 
 }
 
+/**
+ * 楼盘
+ */
 class HouseLogic extends BaseLogic {
 
     /**
      * 选择楼盘时自动根据输入的关键词模糊搜索
+     * 
+     * 用于新增页面
      * @param string $key_words 关键词
      */
     public function getNameListLike($key_words) {
@@ -102,7 +109,9 @@ class HouseLogic extends BaseLogic {
     }
 
     /**
-     * 统计栋阁
+     * 统计栋阁数量
+     * 
+     * 用于详情页面
      * @param int $house_id 楼盘id
      */
     public function getSeatCount($house_id) {
@@ -110,7 +119,9 @@ class HouseLogic extends BaseLogic {
     }
 
     /**
-     * 统计单元
+     * 统计单元数量
+     * 
+     * 用于详情页面
      * @param int $house_id 楼盘id
      */
     public function getUnitCount($house_id) {
@@ -118,7 +129,9 @@ class HouseLogic extends BaseLogic {
     }
 
     /**
-     * 统计房屋
+     * 统计房屋数量
+     * 
+     * 用于详情页面
      * @param int $house_id 楼盘id
      */
     public function getRoomCount($house_id) {
@@ -134,7 +147,8 @@ class HouseLogic extends BaseLogic {
     }
 
     /**
-     * 获取已经存在的栋阁
+     * 获取已经存在的栋阁名称列表
+     * 
      * @param int $house_id 楼盘id
      */
     public function getExistsSeatNameList($house_id) {
@@ -143,10 +157,15 @@ class HouseLogic extends BaseLogic {
 
 }
 
+/**
+ * 栋阁
+ */
 class SeatLogic extends BaseLogic {
 
     /**
-     * 统计栋阁下的单元
+     * 统计栋阁下的单元数量
+     * 
+     * 用于详情页面
      * @param int $seat_id 栋阁id
      */
     public function getUnitCount($seat_id) {
@@ -154,7 +173,9 @@ class SeatLogic extends BaseLogic {
     }
 
     /**
-     * 统计栋阁下的房屋
+     * 统计栋阁下的房屋数量
+     * 
+     * 用于详情页面
      * @param int $seat_id 栋阁id
      */
     public function getRoomCount($seat_id) {
@@ -162,7 +183,8 @@ class SeatLogic extends BaseLogic {
     }
 
     /**
-     * 获取已经存在的单元
+     * 获取已经存在的单元名称列表
+     * 
      * @param int $seat_id 栋阁id
      */
     public function getExistsUnitNameList($seat_id) {
@@ -171,10 +193,15 @@ class SeatLogic extends BaseLogic {
 
 }
 
+/**
+ * 单元
+ */
 class UnitLogic extends BaseLogic {
 
     /**
-     * 统计单元下的房屋
+     * 统计单元下的房屋数量
+     * 
+     * 用于详情页面
      * @param int $unit_id 单元id
      */
     public function getRoomCount($unit_id) {
@@ -183,10 +210,13 @@ class UnitLogic extends BaseLogic {
 
 }
 
+/**
+ * 房屋
+ */
 class RoomLogic extends BaseLogic {
 
     /**
-     * 设置业主查看次数
+     * 设置业主查看次数（每次+1）
      * @param int $room_id 查看的房屋id
      * @param int $user_id 查看者id
      */
