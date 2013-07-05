@@ -236,6 +236,9 @@ class RoomLogic extends BaseLogic {
 
 }
 
+/**
+ * 学区房
+ */
 class SchoolLogic {
 
     /**
