@@ -1,4 +1,5 @@
-delimiter $$
+﻿delimiter $$
+
 
 CREATE TABLE `fy_dictionary_room` (
   `room_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '房屋ID',
