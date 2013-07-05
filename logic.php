@@ -19,6 +19,7 @@ abstract class BaseLogic {
     /**
      * 新增入库
      * @param array $args   表单提交的数据
+     * @return string   数据行的id
      */
     public function add($args) {
         
@@ -236,6 +237,9 @@ class RoomLogic extends BaseLogic {
 
 }
 
+/**
+ * 学区房
+ */
 class SchoolLogic {
 
     /**
@@ -249,6 +253,7 @@ class SchoolLogic {
     /**
      * 学区房新增
      * @param array $args 表单提交的学区房数据
+     * @return string   学区房id
      */
     public function add($args) {
         
@@ -307,6 +312,7 @@ class FollowLogic {
     /**
      * 新增精耕
      * @param array $args 表单提交的精耕信息
+     * @return string   跟进id
      */
     public function add($args) {
         
@@ -365,6 +371,7 @@ class PictureLogic {
     /**
      * 新增图片
      * @param array $args 表单提交的图片信息
+     * @return string   图片id
      */
     public function add($args) {
         
@@ -448,4 +455,61 @@ class ImportLogic {
         
     }
 
+}
+
+/**
+ * 户型
+ */
+class RoomTypeLogic {
+    /**
+     * 根据室,厅,厨,卫,阳获取户型
+     * 
+     * @param array $args 室,厅,厨,卫,阳信息 
+     * array(
+     *     'type_room' => x,
+     *     'type_hall' => x,
+     *     'type_kitchen' => x,
+     *     'type_bathroom' => x,
+     *     'type_balcony' => x,)
+     * @return bool|array 户型信息 如果查找不到，返回false
+     */
+    public function getByParams($args) {
+
+    }
+
+    /**
+     * 根据室,厅,厨,卫,阳获取户型，如果查找不到，则自动创建，并返回创建后的信息
+     * 
+     * @param array $args 室,厅,厨,卫,阳信息 
+     * array(
+     *     'type_room' => x,
+     *     'type_hall' => x,
+     *     'type_kitchen' => x,
+     *     'type_bathroom' => x,
+     *     'type_balcony' => x,)
+     * @return array 户型信息 确保一定会查到
+     */
+    public function getOrCreate($args) {
+
+    }
+
+    /**
+     * 根据主键获取户型信息
+     * 
+     * @param int|string $id 户型id
+     * @return bool|array 户型信息 如果查找不到，返回false
+     */
+    public function get($id) {
+
+    }
+
+    /**
+     * 添加户型
+     * 
+     * @param array $args 户型信息
+     * @return string 户型id
+     */
+    public function add($args) {
+
+    }
 }
