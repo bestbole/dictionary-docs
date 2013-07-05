@@ -269,22 +269,6 @@ class SchoolLogic {
     }
 
     /**
-     * 开启新增审核
-     * @param array $args 审核数据
-     */
-    public function startAddFlow($args) {
-        
-    }
-
-    /**
-     * 开启编辑审核
-     * @param array $args 审核数据
-     */
-    public function startEditFlow($id, $args) {
-        
-    }
-
-    /**
      * 获取学区房信息的列表页
      * @param array $args 搜索条件
      * @param array $page 分页
