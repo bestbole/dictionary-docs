@@ -84,7 +84,7 @@ CREATE TABLE `fy_dictionary_house` (
   `house_modify_by` int(11) unsigned NOT NULL COMMENT '修改者',
   `house_modify_time` timestamp NULL DEFAULT NULL,
   `house_duty_range` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '责任盘范围(责任盘) 1:责任盘,2:范围盘,3:非范围盘',
-  `house_if_delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除，1已删 0未删',
+  `house_deleted` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否已删除=>1:未删,2:已删',
   PRIMARY KEY (`house_id`),
   UNIQUE KEY `house_code_UNIQUE` (`house_code`),
   KEY `house_business_circle` (`house_business_circle`),
@@ -167,14 +167,15 @@ CREATE TABLE `fy_dictionary_picture` (
   `picture_module` smallint(6) NOT NULL COMMENT '图片所属模块=>100:楼盘字典,200:房源',
   `picture_target_type` smallint(6) DEFAULT NULL COMMENT '对象类型=>101:楼盘,104:房屋,201:房源',
   `picture_target_id` int(11) unsigned NOT NULL COMMENT '对象id',
-  `picture_type` smallint(6) NOT NULL COMMENT '图片类型 101:楼盘平面图,102:楼盘外观图,103:楼盘户型图,201:栋座外观图,202:栋座户型图,203:栋座剖面图,301:房屋内部图,302:房屋户型图,303:房屋外观图',
+  `picture_type` smallint(6) NOT NULL COMMENT '图片类型(房源:（201:房屋照片,202:证件图,203:户型图）,)',
   `file_unique_hash` char(40) NOT NULL COMMENT '文件id',
   `file_save_path` varchar(100) NOT NULL COMMENT '文件路径(冗余)',
-  `picture_name` varchar(50) NOT NULL COMMENT '图片名称',
-  `picture_size` varchar(45) DEFAULT NULL COMMENT '图片尺寸',
-  `picture_file_type` varchar(45) DEFAULT NULL COMMENT '图片文件类型',
-  `picture_tag` varchar(45) DEFAULT NULL COMMENT '标签',
-  `picture_is_cover` tinyint(3) unsigned NOT NULL COMMENT '是否是封面',
+  `picture_name` varchar(50) NOT NULL DEFAULT '' COMMENT '图片名称',
+  `picture_size` varchar(45) NOT NULL DEFAULT '' COMMENT '图片尺寸',
+  `picture_file_type` varchar(45) NOT NULL DEFAULT '' COMMENT '图片文件类型如：（.jpg,.gif,.jpeg）',
+  `picture_belong` tinyint(3) NOT NULL COMMENT '图片所属(10:客厅,20:厨房,30:客房,40:厕所,50:阳台,60:杂物间)',
+  `picture_tag` smallint(6) NOT NULL COMMENT '标签图片(200:验房)',
+  `picture_is_cover` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否是封面(0:不是封面，1：封面)',
   PRIMARY KEY (`picture_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=435 DEFAULT CHARSET=utf8 COMMENT='图片表'$$
 
@@ -242,7 +243,7 @@ CREATE TABLE `fy_dictionary_room` (
   `room_audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
   `room_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '审核时间',
   `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
-  `room_if_delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '删除状态 0未 1已删除',
+  `room_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除=>1:未删,2:已删',
   PRIMARY KEY (`room_id`),
   KEY `house_id` (`house_id`),
   KEY `index_seat_id` (`seat_id`),
@@ -314,7 +315,7 @@ CREATE TABLE `fy_dictionary_seat` (
   `seat_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次修改时间',
   `seat_audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态 101,102,103...',
   `seat_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `seat_if_delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除 0否 1是',
+  `seat_deleted` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否已删除=>1:未删,2:已删',
   `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
   PRIMARY KEY (`seat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='栋座'$$
@@ -339,7 +340,7 @@ CREATE TABLE `fy_dictionary_unit` (
   `unit_audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
   `unit_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '审核时间',
   `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
-  `unit_if_delete` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否删除 1已删 0未删',
+  `unit_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除=>1:未删,2:已删',
   PRIMARY KEY (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单元表'$$
 
