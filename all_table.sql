@@ -328,6 +328,7 @@ CREATE TABLE `fy_dictionary_unit` (
   `house_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属楼盘id',
   `seat_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '所属栋座id',
   `unit_name` varchar(30) NOT NULL DEFAULT '' COMMENT '单元名称',
+  `unit_alias` varchar(30) DEFAULT NULL COMMENT '单元别名',
   `unit_label_number` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '标号楼层数',
   `unit_physical_number` int(10) NOT NULL DEFAULT '0' COMMENT '物理楼层数',
   `unit_not_using_floor_numbers` varchar(45) DEFAULT NULL COMMENT '剔除层数',
