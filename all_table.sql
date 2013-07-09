@@ -81,8 +81,8 @@ CREATE TABLE `fy_dictionary_house` (
   `house_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '楼盘状态 =>0新建 1有效 2无效',
   `house_create_by` int(11) unsigned NOT NULL COMMENT '创建人',
   `house_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  `house_modify_by` int(11) unsigned NOT NULL COMMENT '修改者',
-  `house_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
+  `house_last_modify_by` int(11) unsigned NOT NULL COMMENT '修改者',
+  `house_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
   `house_duty_range` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '责任盘范围(责任盘) 1:责任盘,2:范围盘,3:非范围盘',
   `house_deleted` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否已删除=>1:未删,2:已删',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态 ',
@@ -328,13 +328,11 @@ CREATE TABLE `fy_dictionary_unit` (
   `unit_households` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '总户数',
   `unit_create_by` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建者id',
   `unit_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
-  `unit_modify_by` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改人id',
+  `unit_last_modify_by` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改人id',
   `unit_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次修改时间',
-  `unit_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '单元状态=>1:有效,2:新建',
+  `unit_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '单元状态{1:有效,2:新建}',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `unit_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '审核时间',
-  `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
-  `unit_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除=>1:未删,2:已删',
+  `unit_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除{1:未删,2:已删}',
   PRIMARY KEY (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元表'$$
 
@@ -342,7 +340,7 @@ CREATE TABLE `fy_dictionary_unit` (
 delimiter $$
 
 CREATE TABLE `fy_dictionary_unit_room_type_relation` (
-  `relation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `relation_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '关系id',
   `unit_id` int(10) unsigned NOT NULL COMMENT '单元id',
   `type_id` int(10) unsigned NOT NULL COMMENT '户型id',
   PRIMARY KEY (`relation_id`)
