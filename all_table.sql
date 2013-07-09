@@ -14,7 +14,7 @@ CREATE TABLE `fy_dictionary_follow` (
   `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
   `follow_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '精耕状态 0新建 1有效',
   PRIMARY KEY (`follow_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='精耕(跟进)记录表'$$
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='精耕(跟进)记录表'$$
 
 
 delimiter $$
@@ -86,10 +86,10 @@ CREATE TABLE `fy_dictionary_house` (
   `house_duty_range` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '责任盘范围(责任盘) 1:责任盘,2:范围盘,3:非范围盘',
   `house_deleted` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否已删除=>1:未删,2:已删',
   PRIMARY KEY (`house_id`),
-  UNIQUE KEY `house_code_UNIQUE` (`house_code`),
-  KEY `house_business_circle` (`house_business_circle`),
-  KEY `index_part` (`house_part`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='楼盘表'$$
+  UNIQUE KEY `house_code_UNIQUE` (`house_code`) USING BTREE,
+  KEY `house_business_circle` (`house_business_circle`) USING BTREE,
+  KEY `index_part` (`house_part`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘表'$$
 
 
 delimiter $$
@@ -104,7 +104,7 @@ CREATE TABLE `fy_dictionary_house_import` (
   `user_id` int(10) unsigned NOT NULL COMMENT '上传者',
   `import_upload_time` timestamp NULL DEFAULT NULL COMMENT '上传时间',
   PRIMARY KEY (`import_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=368 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='批量导入历史表'$$
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='批量导入历史表'$$
 
 
 delimiter $$
@@ -122,7 +122,7 @@ CREATE TABLE `fy_dictionary_house_import_detail` (
   `detail_result` tinyint(1) unsigned NOT NULL COMMENT '上传结果 0:失败, 1:成功',
   `detail_fail_reson` varchar(40) NOT NULL DEFAULT '' COMMENT '失败原因',
   PRIMARY KEY (`detail_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=508 DEFAULT CHARSET=utf8 COMMENT='批量导入历史详情表'$$
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='批量导入历史详情表'$$
 
 
 delimiter $$
@@ -133,7 +133,7 @@ CREATE TABLE `fy_dictionary_house_school_relation` (
   `house_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '楼盘id',
   `dhsr_status` tinyint(1) unsigned NOT NULL COMMENT '关联状态 1有效 2无效',
   PRIMARY KEY (`dhsr_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=72 DEFAULT CHARSET=utf8 COMMENT='学校楼盘关联表'$$
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED COMMENT='学校楼盘关联表'$$
 
 
 delimiter $$
@@ -145,7 +145,7 @@ CREATE TABLE `fy_dictionary_house_support` (
   `support_name` varchar(20) NOT NULL COMMENT '配套名称',
   `support_remark` varchar(255) NOT NULL DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`support_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='楼盘配套设施表'$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘配套设施表'$$
 
 
 delimiter $$
@@ -157,7 +157,7 @@ CREATE TABLE `fy_dictionary_house_transit_map` (
   `transit_type` tinyint(2) NOT NULL COMMENT '公交类型',
   `transit_line_name` varchar(30) NOT NULL COMMENT '线路名称',
   PRIMARY KEY (`house_transit_map_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='楼盘公交映射表'$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘公交映射表'$$
 
 
 delimiter $$
@@ -177,7 +177,7 @@ CREATE TABLE `fy_dictionary_picture` (
   `picture_tag` smallint(6) NOT NULL COMMENT '标签图片(200:验房)',
   `picture_is_cover` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否是封面(0:不是封面，1：封面)',
   PRIMARY KEY (`picture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=435 DEFAULT CHARSET=utf8 COMMENT='图片表'$$
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='图片表'$$
 
 
 delimiter $$
@@ -188,7 +188,7 @@ CREATE TABLE `fy_dictionary_region_operation_config` (
   `droc_alias` varchar(20) NOT NULL DEFAULT '' COMMENT '别名',
   `droc_order` tinyint(1) unsigned NOT NULL COMMENT '顺序',
   PRIMARY KEY (`droc_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='业务区域配置表'$$
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='业务区域配置表'$$
 
 
 delimiter $$
@@ -240,15 +240,13 @@ CREATE TABLE `fy_dictionary_room` (
   `room_create_by` int(10) unsigned NOT NULL COMMENT '添加人id',
   `room_modify_by` int(10) unsigned NOT NULL COMMENT '修改人id',
   `room_quality` tinyint(1) unsigned NOT NULL COMMENT '产权性质 1:商品房2:房改房3：拆迁安置房4:安居房5:公房6:经济适用房7:私房',
-  `room_audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `room_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '审核时间',
-  `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
+  `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
   `room_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除=>1:未删,2:已删',
   PRIMARY KEY (`room_id`),
-  KEY `house_id` (`house_id`),
-  KEY `index_seat_id` (`seat_id`),
-  KEY `index_unit_id` (`unit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='楼盘字典房屋表'$$
+  KEY `house_id` (`house_id`) USING BTREE,
+  KEY `index_seat_id` (`seat_id`) USING BTREE,
+  KEY `index_unit_id` (`unit_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘字典房屋表'$$
 
 
 delimiter $$
@@ -262,8 +260,8 @@ CREATE TABLE `fy_dictionary_room_type` (
   `type_bathroom` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '卫',
   `type_balcony` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '阳',
   PRIMARY KEY (`type_id`),
-  KEY `index_search` (`type_room`,`type_hall`,`type_kitchen`,`type_bathroom`,`type_balcony`) COMMENT '查重'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='户型表'$$
+  KEY `index_search` (`type_room`,`type_hall`,`type_kitchen`,`type_bathroom`,`type_balcony`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='户型表'$$
 
 
 delimiter $$
@@ -285,8 +283,8 @@ CREATE TABLE `fy_dictionary_school` (
   `school_if_delete` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否删除 (0:未删1:删除)',
   `school_city` int(11) DEFAULT '0' COMMENT '学校所属城市',
   PRIMARY KEY (`school_id`),
-  KEY `index_assoc` (`school_associate`)
-) ENGINE=MyISAM AUTO_INCREMENT=71 DEFAULT CHARSET=utf8 COMMENT='学校信息表'$$
+  KEY `index_assoc` (`school_associate`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='学校信息表'$$
 
 
 delimiter $$
@@ -318,7 +316,7 @@ CREATE TABLE `fy_dictionary_seat` (
   `seat_deleted` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否已删除=>1:未删,2:已删',
   `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
   PRIMARY KEY (`seat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='栋座'$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='栋座'$$
 
 
 delimiter $$
@@ -338,12 +336,22 @@ CREATE TABLE `fy_dictionary_unit` (
   `unit_modify_by` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改人id',
   `unit_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次修改时间',
   `unit_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '单元状态=>1:有效,2:新建',
-  `unit_audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
+  `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
   `unit_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '审核时间',
   `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
   `unit_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除=>1:未删,2:已删',
   PRIMARY KEY (`unit_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单元表'$$
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元表'$$
+
+
+delimiter $$
+
+CREATE TABLE `fy_dictionary_unit_room_type_relation` (
+  `relation_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `unit_id` int(10) unsigned NOT NULL COMMENT '单元id',
+  `type_id` int(10) unsigned NOT NULL COMMENT '户型id',
+  PRIMARY KEY (`relation_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元户型关系表'$$
 
 
 delimiter $$
@@ -355,9 +363,9 @@ CREATE TABLE `fy_dictionary_view_times` (
   `times_count` int(10) unsigned DEFAULT '0',
   `times_last_update_time` timestamp NULL DEFAULT NULL COMMENT '查看时间',
   PRIMARY KEY (`times_id`),
-  KEY `index_room_id` (`room_id`),
-  KEY `index_user_id` (`user_id`),
-  KEY `index_user_room` (`user_id`,`room_id`) COMMENT '快速找到用户查看某个房屋的次数'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='业主电话查看记录表'$$
+  KEY `index_room_id` (`room_id`) USING BTREE,
+  KEY `index_user_id` (`user_id`) USING BTREE,
+  KEY `index_user_room` (`user_id`,`room_id`) USING BTREE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='业主电话查看记录表'$$
 
 
