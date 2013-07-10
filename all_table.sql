@@ -3,8 +3,8 @@ delimiter $$
 CREATE TABLE `fy_dictionary_follow` (
   `follow_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '精耕记录id',
   `room_id` int(11) unsigned NOT NULL COMMENT '房屋id',
-  `follow_purpose` tinyint(2) unsigned NOT NULL COMMENT '精耕目的 1:议价,2:独家,3:限时,4:验房,5:拿钥匙,6:带看反馈,7:保鲜翻盘,8:情感联接,9:斡旋谈判',
-  `follow_type` tinyint(1) unsigned NOT NULL COMMENT '精耕类型 1:电话,2:短信,3:面谈,4:电子邮件,5:QQ,6:其他',
+  `follow_purpose` tinyint(2) unsigned NOT NULL COMMENT '精耕目的{1:议价,2:独家,3:限时,4:验房,5:拿钥匙,6:带看反馈,7:保鲜翻盘,8:情感联接,9:斡旋谈判}',
+  `follow_type` tinyint(1) unsigned NOT NULL COMMENT '精耕类型{1:电话,2:短信,3:面谈,4:电子邮件,5:QQ,6:其他}',
   `follow_content` varchar(255) NOT NULL DEFAULT '' COMMENT '精耕内容',
   `follow_result` varchar(100) NOT NULL DEFAULT '' COMMENT '精耕结果',
   `follow_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
