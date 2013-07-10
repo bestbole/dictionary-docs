@@ -9,11 +9,9 @@ CREATE TABLE `fy_dictionary_follow` (
   `follow_result` varchar(100) NOT NULL DEFAULT '' COMMENT '精耕结果',
   `follow_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `follow_create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
-  `follow_audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `follow_audit_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '审核时间',
-  `work_type` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '工作类型',
-  `follow_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '精耕状态 0新建 1有效',
-  PRIMARY KEY (`follow_id`)
+  `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
+  PRIMARY KEY (`follow_id`),
+  KEY `index_room` (`room_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='精耕(跟进)记录表'$$
 
 
