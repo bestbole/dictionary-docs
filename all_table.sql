@@ -7,8 +7,8 @@ CREATE TABLE `fy_dictionary_follow` (
   `follow_type` tinyint(1) unsigned NOT NULL COMMENT '精耕类型{1:电话,2:短信,3:面谈,4:电子邮件,5:QQ,6:其他}',
   `follow_content` varchar(255) NOT NULL DEFAULT '' COMMENT '精耕内容',
   `follow_result` varchar(100) NOT NULL DEFAULT '' COMMENT '精耕结果',
-  `follow_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `follow_create_by` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建人',
+  `follow_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
   PRIMARY KEY (`follow_id`),
   KEY `index_room` (`room_id`)
@@ -241,7 +241,8 @@ CREATE TABLE `fy_dictionary_room` (
   PRIMARY KEY (`room_id`),
   KEY `house_id` (`house_id`) USING BTREE,
   KEY `index_seat_id` (`seat_id`) USING BTREE,
-  KEY `index_unit_id` (`unit_id`) USING BTREE
+  KEY `index_unit_id` (`unit_id`) USING BTREE,
+  KEY `index_time` (`room_last_modify_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘字典房屋表'$$
 
 
@@ -331,7 +332,10 @@ CREATE TABLE `fy_dictionary_unit` (
   `unit_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '单元状态{1:有效,2:新建}',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
   `unit_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除{1:未删,2:已删}',
-  PRIMARY KEY (`unit_id`)
+  PRIMARY KEY (`unit_id`),
+  KEY `index_time` (`unit_last_modify_time`),
+  KEY `index_house` (`house_id`),
+  KEY `index_seat` (`seat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元表'$$
 
 
@@ -348,7 +352,7 @@ CREATE TABLE `fy_dictionary_unit_room_type_relation` (
 delimiter $$
 
 CREATE TABLE `fy_dictionary_view_times` (
-  `times_id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `times_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '查看id',
   `room_id` int(10) unsigned DEFAULT NULL COMMENT '房屋id',
   `user_id` int(10) unsigned DEFAULT NULL COMMENT '查看人id',
   `times_count` int(10) unsigned DEFAULT '0',
@@ -359,4 +363,5 @@ CREATE TABLE `fy_dictionary_view_times` (
   KEY `index_user_room` (`user_id`,`room_id`) USING BTREE,
   KEY `index_time` (`times_last_update_time`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='业主电话查看记录表'$$
+
 
