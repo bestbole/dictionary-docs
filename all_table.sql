@@ -356,7 +356,7 @@ CREATE TABLE `fy_dictionary_view_times` (
   PRIMARY KEY (`times_id`),
   KEY `index_room_id` (`room_id`) USING BTREE,
   KEY `index_user_id` (`user_id`) USING BTREE,
-  KEY `index_user_room` (`user_id`,`room_id`) USING BTREE
+  KEY `index_user_room` (`user_id`,`room_id`) USING BTREE,
+  KEY `index_time` (`times_last_update_time`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='业主电话查看记录表'$$
-
 
