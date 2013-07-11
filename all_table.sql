@@ -324,7 +324,6 @@ CREATE TABLE `fy_dictionary_unit` (
   `unit_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
   `unit_last_modify_by` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '修改人id',
   `unit_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次修改时间',
-  `unit_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '单元状态{1:有效,2:新建}',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
   PRIMARY KEY (`unit_id`),
   KEY `index_time` (`unit_last_modify_time`),
