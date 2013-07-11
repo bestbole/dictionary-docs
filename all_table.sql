@@ -19,19 +19,22 @@ delimiter $$
 
 CREATE TABLE `fy_dictionary_house` (
   `house_id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '楼盘id',
-  `house_name` varchar(30) NOT NULL DEFAULT '' COMMENT '楼盘名称',
-  `house_part` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '期数 0:不分期,$num:期数',
   `house_code` char(10) NOT NULL DEFAULT '' COMMENT '楼盘代码',
-  `house_address_street` varchar(20) NOT NULL DEFAULT '' COMMENT '物业地址街',
-  `house_address_num` varchar(20) NOT NULL DEFAULT '' COMMENT '物业地址号',
+  `house_name` varchar(30) NOT NULL DEFAULT '' COMMENT '楼盘名称',
+  `house_alias` varchar(30) NOT NULL DEFAULT '' COMMENT '楼盘别名',
+  `house_part` tinyint(2) unsigned NOT NULL DEFAULT '0' COMMENT '期数 0:不分期,$num:期数',
   `house_city` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属城市(fk)',
   `house_area` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属城区(fk)',
-  `house_group` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属店组(fk)',
   `house_business_circle` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属商圈(fk)',
-  `house_developer` varchar(30) NOT NULL DEFAULT '' COMMENT '开发商',
-  `house_building_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '楼盘栋数',
+  `house_address_street` varchar(20) NOT NULL DEFAULT '' COMMENT '物业地址街',
+  `house_address_num` varchar(20) NOT NULL DEFAULT '' COMMENT '物业地址号',
   `house_family_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '楼盘户数',
   `house_use` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '楼盘用途 F000000133',
+  `house_opening` date NOT NULL DEFAULT '0000-00-00' COMMENT '开盘时间',
+  `house_tags` varchar(30) NOT NULL DEFAULT '' COMMENT '标签',
+  `house_group` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '所属店组(fk)',
+  `house_developer` varchar(30) NOT NULL DEFAULT '' COMMENT '开发商',
+  `house_building_count` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '楼盘栋数',
   `house_permissions` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '楼盘权属 F000000122',
   `house_land_nature` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '土地性质 F000000123',
   `house_land_life` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '土地年限 F000000124',
@@ -48,7 +51,6 @@ CREATE TABLE `fy_dictionary_house` (
   `house_parking_total_count` smallint(5) unsigned DEFAULT NULL COMMENT '总停车位',
   `house_parking_fee` varchar(20) NOT NULL DEFAULT '' COMMENT '停车费',
   `house_property_phone` varchar(20) NOT NULL DEFAULT '' COMMENT '物业电话',
-  `house_alias` varchar(30) NOT NULL DEFAULT '' COMMENT '楼盘别名',
   `house_property` varchar(30) NOT NULL DEFAULT '' COMMENT '物业公司',
   `house_in_time` date NOT NULL COMMENT '入住日期',
   `house_building_area` varchar(20) NOT NULL DEFAULT '' COMMENT '建筑面积',
@@ -224,6 +226,7 @@ CREATE TABLE `fy_dictionary_room` (
   `room_owner_contact` varchar(200) NOT NULL DEFAULT '' COMMENT '产权人联系方式',
   `room_owner_papers_type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '证件类型{1:身份证,2:驾驶证}',
   `room_owner_papers_number` varchar(30) NOT NULL DEFAULT '' COMMENT '证件号码',
+  `room_paper_date` date DEFAULT NULL COMMENT '证件日期',
   `room_owner_common` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否共有{1:共有,0:不共有}',
   `room_owner_coowner` varchar(20) NOT NULL DEFAULT '' COMMENT '共有人姓名',
   `room_owner_agent` varchar(20) NOT NULL DEFAULT '' COMMENT '代理人姓名',
@@ -329,7 +332,7 @@ CREATE TABLE `fy_dictionary_unit` (
   KEY `index_time` (`unit_last_modify_time`),
   KEY `index_house` (`house_id`),
   KEY `index_seat` (`seat_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元表'$$
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元表'$$
 
 
 delimiter $$
