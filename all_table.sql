@@ -82,7 +82,6 @@ CREATE TABLE `fy_dictionary_house` (
   `house_last_modify_by` int(11) unsigned NOT NULL COMMENT '修改者',
   `house_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '修改时间',
   `house_duty_range` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '责任盘范围(责任盘) 1:责任盘,2:范围盘,3:非范围盘',
-  `house_deleted` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否已删除=>1:未删,2:已删',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态 ',
   PRIMARY KEY (`house_id`),
   UNIQUE KEY `house_code_UNIQUE` (`house_code`) USING BTREE,
@@ -237,7 +236,6 @@ CREATE TABLE `fy_dictionary_room` (
   `room_last_modify_by` int(10) unsigned NOT NULL COMMENT '修改人id',
   `room_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次修改时间',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `room_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除{1:未删,0:已删}',
   PRIMARY KEY (`room_id`),
   KEY `house_id` (`house_id`) USING BTREE,
   KEY `index_seat_id` (`seat_id`) USING BTREE,
@@ -308,7 +306,6 @@ CREATE TABLE `fy_dictionary_seat` (
   `seat_last_modify_by` int(10) unsigned NOT NULL COMMENT '修改人',
   `seat_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次修改时间',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `seat_deleted` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '是否已删除{1:未删,2:已删}',
   PRIMARY KEY (`seat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='栋座'$$
 
@@ -331,7 +328,6 @@ CREATE TABLE `fy_dictionary_unit` (
   `unit_last_modify_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '最后一次修改时间',
   `unit_status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '单元状态{1:有效,2:新建}',
   `audit_status` smallint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核状态',
-  `unit_deleted` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '是否已删除{1:未删,2:已删}',
   PRIMARY KEY (`unit_id`),
   KEY `index_time` (`unit_last_modify_time`),
   KEY `index_house` (`house_id`),
