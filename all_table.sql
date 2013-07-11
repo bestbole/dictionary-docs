@@ -323,7 +323,7 @@ CREATE TABLE `fy_dictionary_unit` (
   `unit_alias` varchar(30) DEFAULT NULL COMMENT '单元别名',
   `unit_label_number` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '标号楼层数',
   `unit_physical_number` int(10) NOT NULL DEFAULT '0' COMMENT '物理楼层数',
-  `unit_not_using_floor_numbers` varchar(45) DEFAULT NULL COMMENT '剔除层数',
+  `unit_not_using_floor_numbers` varchar(45) DEFAULT NULL COMMENT '剔除层数{4,13,14}',
   `unit_households` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '总户数',
   `unit_create_by` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '创建者id',
   `unit_create_time` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '创建时间',
