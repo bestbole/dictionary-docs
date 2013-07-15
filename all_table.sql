@@ -232,7 +232,7 @@ CREATE TABLE `fy_dictionary_room` (
   KEY `index_seat_id` (`seat_id`) USING BTREE,
   KEY `index_unit_id` (`unit_id`) USING BTREE,
   KEY `index_time` (`room_last_modify_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘字典房屋表'$$
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='楼盘字典房屋表'$$
 
 
 delimiter $$
@@ -247,7 +247,7 @@ CREATE TABLE `fy_dictionary_room_type` (
   `type_balcony` int(5) unsigned NOT NULL DEFAULT '0' COMMENT '阳',
   PRIMARY KEY (`type_id`),
   KEY `index_search` (`type_room`,`type_hall`,`type_kitchen`,`type_bathroom`,`type_balcony`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='户型表'$$
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='户型表'$$
 
 
 delimiter $$
@@ -320,17 +320,7 @@ CREATE TABLE `fy_dictionary_unit` (
   KEY `index_time` (`unit_last_modify_time`),
   KEY `index_house` (`house_id`),
   KEY `index_seat` (`seat_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元表'$$
-
-
-delimiter $$
-
-CREATE TABLE `fy_dictionary_unit_room_type_relation` (
-  `relation_id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '关系id',
-  `unit_id` int(10) unsigned NOT NULL COMMENT '单元id',
-  `type_id` int(10) unsigned NOT NULL COMMENT '户型id',
-  PRIMARY KEY (`relation_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元户型关系表'$$
+) ENGINE=InnoDB AUTO_INCREMENT=90 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='单元表'$$
 
 
 delimiter $$
